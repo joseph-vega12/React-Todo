@@ -1,16 +1,15 @@
 import React from 'react';
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 const todos = [
   {
     task: 'Bake Cookies',
     id: 1528817084358,
-  },
-  {
-    task: 'Eat Cookies',
-    id: 1298939239239,
-  },
+    completed: false,
+  }
 ]
+
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -24,10 +23,23 @@ class App extends React.Component {
     }
   }
 
+
+  handleOnSubmit = name => {
+    this.setState({
+      todos:[...this.state.todos, {
+        task: name, 
+        id: Math.round(Math.random() * 24),
+        completed: false,
+      }]
+    })
+  }
+
   render() {
     return (
       <div>
         <h1>Enter Your Todos For the Day</h1>
+        <TodoForm handleOnSubmit={this.handleOnSubmit}/>
+        <TodoList todos={this.state.todos}/>
       </div>
     );
   }
